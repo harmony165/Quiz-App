@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/harmony165/Quiz-App/static/css/main.8c4feaf6.chunk.css",
+    "main.js": "/harmony165/Quiz-App/static/js/main.ed27abe9.chunk.js",
+    "main.js.map": "/harmony165/Quiz-App/static/js/main.ed27abe9.chunk.js.map",
+    "runtime-main.js": "/harmony165/Quiz-App/static/js/runtime-main.27a6cb76.js",
+    "runtime-main.js.map": "/harmony165/Quiz-App/static/js/runtime-main.27a6cb76.js.map",
+    "static/js/2.bb638460.chunk.js": "/harmony165/Quiz-App/static/js/2.bb638460.chunk.js",
+    "static/js/2.bb638460.chunk.js.map": "/harmony165/Quiz-App/static/js/2.bb638460.chunk.js.map",
+    "index.html": "/harmony165/Quiz-App/index.html",
+    "precache-manifest.95ce2762bc17d46f28e24e8687438e8e.js": "/harmony165/Quiz-App/precache-manifest.95ce2762bc17d46f28e24e8687438e8e.js",
+    "service-worker.js": "/harmony165/Quiz-App/service-worker.js",
+    "static/css/main.8c4feaf6.chunk.css.map": "/harmony165/Quiz-App/static/css/main.8c4feaf6.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.27a6cb76.js",
+    "static/js/2.bb638460.chunk.js",
+    "static/css/main.8c4feaf6.chunk.css",
+    "static/js/main.ed27abe9.chunk.js"
+  ]
+}
