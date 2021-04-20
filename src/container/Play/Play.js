@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-
 import Options from '../../component/Options/Options';
-import Spinner from '../../component/Spinner/Spinner'
+import Spinner from '../../component/Spinner/Spinner';
 
 class Play extends Component{
 
@@ -13,7 +12,8 @@ class Play extends Component{
       questions: {},
       score: 0,
       selectedAnswer: '',
-      evaluate: false
+      evaluate: false,
+      lives:3
     }
   }
 
@@ -62,20 +62,23 @@ class Play extends Component{
       if (this.state.selectedAnswer === this.state.questions[this.state.qNumber - 1].correctAns){
         this.setState({
           evaluate: 'correct',
-          score: this.state.score + 1,
+          score: this.state.score + 1
         })
         
       } else if (this.state.selectedAnswer !== this.state.questions[this.state.qNumber - 1].correctAns){
         this.setState({
-          evaluate: 'wrong'
+          evaluate: 'wrong',
+          lives:this.state.lives - 1
         })
+        
       }
+      console.log (this.state.lives);
     }, 450)
 
   }
 
   next(){
-    if(this.state.qNumber === 10){
+    if(this.state.qNumber === 10 || this.state.lives === 0){
       this.state.score >= 6 ? this.props.finished('pass') : this.props.finished('fail')
     }
     setTimeout(()=>{
@@ -155,14 +158,34 @@ class Play extends Component{
               <p>{decodeURIComponent(this.state.questions[this.state.qNumber - 1].correctAns)}</p>
             </div>
     }
+    let hearts = null;
 
+    if(this.state.lives === 3){
+       hearts = <div className="hearts"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+    </svg>  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg>  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg></div>
+    }else if(this.state.lives === 2){
+      hearts = <div className="hearts"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+    </svg>  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg></div>
+    }else if(this.state.lives === 1){
+      hearts = <div className="hearts"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+    </svg>  </div>
+    }
 
 
     return (
       <div className="play">
 
         <div className="top">
-          <p>Level: {this.props.level}</p>
+          <p>Lives: {hearts}</p>
           <p>Time left: {this.state.timer === false ? 0 : this.state.timer}</p>
           <p>Score: {this.state.score}</p>
         </div>
