@@ -14,14 +14,25 @@ class App extends Component {
       page: 'init',
       spinner: false,
       questions: {},
-      level: 1,
       passed: false,
       token: '',
+      genre:'any',
+      difficulty:'easy',
       genre:''
     }
   }
 
- 
+
+  onLevelSelect = (e) => {
+    console.log(this.state.difficulty);
+    this.setState({difficulty: e.target.value});
+    
+  }
+
+  onGenreSelect = (e) => {
+    this.setState({genre: e.target.value});
+    console.log(this.state.genre);
+  }
 
   shuffle(a) {
     return a.sort(() => Math.random() - 0.5)
@@ -34,23 +45,14 @@ class App extends Component {
     }, 300)
   }
     
-  async getToken(){
-    await axios.get('https://opentdb.com/api_token.php?command=request')
-      .then(res => {
-        this.setState({token: res.data.token});
-        console.log(res.data.token);
-      })
-  }
+
 
   getUrl = async () => {
-    if(this.state.token !== ''){
-      this.getToken()
-    }
+ 
     
+    //let url = "https://opentdb.com/api.php?amount=10&category=31&difficulty=&type=multiple"
     
-    let url = "https://opentdb.com/api.php?amount=10&category=31&difficulty=easy&type=multiple"
-    
-    let res = await axios.get(url)
+    let res = await axios.get(`https://opentdb.com/api.php?amount=10&category=${this.state.genre}&difficulty=${this.state.difficulty}&type=multiple&encode=url3986`)
     
     if (res.data.results) {
       let questions = res.data.results.map((q)=>{
@@ -66,7 +68,6 @@ class App extends Component {
         questions,
         page: 'play',
         spinner: false,
-        genre: res.data.results[0].category
       })
       console.log(this.state);
     }
@@ -80,6 +81,10 @@ class App extends Component {
     }
   }
 
+  toMenu(){
+    this.setState({page: 'init'})
+  }
+
   play(){
     this.getUrl()
   }
@@ -89,7 +94,9 @@ class App extends Component {
                   <Init 
                     click={(a)=>this.start(a)}
                     spinner={this.state.spinner} 
-                    genre={this.state.genre}/> : 
+                    genre={this.state.genre}
+                    onLevelChange={this.onLevelSelect}
+                    onGenreChange={this.onGenreSelect}/> : 
                     
                this.state.page === 'play' ?
                   <Play 
@@ -98,16 +105,19 @@ class App extends Component {
                     finished={(a)=>this.finished(a)} /> : 
 
                this.state.page === 'result' ? 
+              
                   <Result 
                     pass={this.state.passed}
-                    play={()=>this.play()}/> : null
+                    play={()=>this.play()}
+                    init={()=>this.toMenu()}
+                    /> : null
 
     return (
       <div className="App">
         <div className="container">
           {page}
+        </div>
       </div>
-    </div>
   )}
 }
 
