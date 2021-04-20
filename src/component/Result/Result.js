@@ -7,7 +7,7 @@ export default function (props){
               <h2>Congratulations!</h2>
               <p>You passed the level!</p>
               <button 
-                onClick={()=>props.play()}>Play Again!</button>
+                onClick={()=>props.play()}>Go to Next level</button>
             </Fragment> 
   } else {
     text = <Fragment>
@@ -15,6 +15,8 @@ export default function (props){
               <p>You did not pass the quiz.</p>
               <button
                 onClick={()=>props.play()}>Try Again!</button>
+              <button
+                onClick={()=>props.init()}>Back to Menu</button>  
             </Fragment> 
   }
 
